@@ -4,7 +4,7 @@
     },
     "JVM":{
         "javaVersion":"openjdk21_jdk"
-	},
+    },
     "scripts":{
         "onServerInitialInstall":"install bx-mysql"
     }
