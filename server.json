@@ -5,5 +5,11 @@
     "javaHome":"C:\\Program Files\\Java\\jdk-21",
     "scripts":{
         "onServerInitialInstall":"install bx-mysql"
+    },
+    "web":{
+        "host":"127.0.0.1",
+        "http":{
+            "port":"80"
+        }
     }
 }
