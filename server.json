@@ -3,6 +3,9 @@
         "cfengine":"boxlang"
     },
     "javaHome":"C:\\Program Files\\Java\\jdk-21",
+    "JVM":{
+        "javaVersion":"openjdk21"
+    },
     "scripts":{
         "onServerInitialInstall":"install bx-mysql"
     },
