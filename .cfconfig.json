@@ -19,7 +19,7 @@
                 }
             },
             "datasources" : {
-                "**DSOURCENAME**":{
+                "Manford_Gayhart":{
                     "database":"${PDBNAME}",
                     "driver":"mysql",
                     "host":"${PHOST}",
