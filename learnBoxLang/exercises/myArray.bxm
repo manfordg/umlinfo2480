@@ -5,3 +5,48 @@
     thing? If not, no stress but stay tuned. I know that this exercise is repetitive. In a few screens we are
     going to see how we can make the computer create the objects and arrays we want more easily and
     automatically. For now though, just type it out.</p>
+
+
+<bx:set book1 = {
+    "title": "Firefighting: The Financial Crisis and Its Lessons",
+    "numPages": 230,
+    "author": {
+        "firstName": "Ben",
+        "middleName": "S",
+        "lastName": "Bernanke"
+    },
+    "publisher": "Penguin Books",
+    "publishedDate": CreateDate(2019, 4, 16)
+} />
+
+<bx:set book2 = {
+    "title": "On The Brink",
+    "numPages": 488,
+    "author": {
+        "firstName": "Henry",
+        "middleName": "M",
+        "lastName": "Paulson, Jr."
+    },
+    "publisher": "Business Plus",
+    "publishedDate": CreateDate(2013, 9, 3)
+} />
+
+<bx:set book3 = {
+    "title": "Information Security Principles and Practices",
+    "numPages": 350,
+    "author": {
+        "firstName": "Mark",
+        "middleName": "S",
+        "lastName": "Merkow"
+    },
+    "publisher": "Peason Education",
+    "publishedDate": CreateDate(2014, 6, 4)
+} />
+
+<bx:set myBooks = [
+    book1,
+    book2,
+    book3
+]/>
+
+<bx:dump var="#myBooks#" />
