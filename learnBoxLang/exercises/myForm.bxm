@@ -2,3 +2,33 @@
 <p>Use HTML to create a form which submits to the same page. Make your form with 5 inputs that coincide with the 
     properties in your database. On the page include <code>&lt;bx:dump var="#form#" label="The Form Data" /></code> 
     so you can test the submission of the form.</p>
+
+
+<bx:dump var="#form#" label="The Form Data" />
+
+<form action="#cgi.script_name#?p=#p#" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+    </div>
+    <div class="mb-3">
+        <label for="numPages" class="form-label">Number of Pages</label>
+        <input type="text" class="form-control" id="numPages" name="numPages" placeholder="Number of Pages">
+    </div>
+    <div class="mb-3">
+        <label for="authorFirstName" class="form-label">Author First Name</label>
+        <input type="text" class="form-control" id="authorFirstName" name="authorFirstName" placeholder="Author First Name">
+    </div>
+    <div class="mb-3">
+        <label for="authorLastName" class="form-label">Author Last Name</label>
+        <input type="text" class="form-control" id="authorLastName" name="authorLastName" placeholder="Author Last Name">
+    </div>
+    <div class="mb-3">
+        <label for="publisher" class="form-label">Publisher</label>
+        <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Publisher">
+    </div>
+
+    <div>
+        <button class="btn btn-primary">Submit</button>
+    </div>
+</form>
