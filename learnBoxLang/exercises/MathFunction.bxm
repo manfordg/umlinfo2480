@@ -1,6 +1,52 @@
 <h3>Math Functions</h3>
 Exercise: Using the function in the main article as a model, write a function that will multiply two numbers together. Call the function and pass in several different combination of numbers (i.e. <code>#addNumbers(5,3)# &lt;br/> #addNumbers(100,223)# </code> etc.)
 
+<bx:function name="multiplyNumbers" access="private" returntype="numeric">
+    <bx:argument name="firstnum" type="numeric">
+    <bx:argument name="secondnum" type="numeric">
+    <bx:return #firstnum * secondnum#>
+</bx:function>
+
+<bx:output>
+    <br /><br />
+    <h3>Multiply Number Example</h3>
+    4 * 8 = #multiplyNumbers(4,8)#<br />
+    3 * 7 = #multiplyNumbers(3,7)#<br />
+    9 * 9 = #multiplyNumbers(9,9)#<br />
+    5 * 6 = #multiplyNumbers(5,6)#<br />
+    12 * 12 = #multiplyNumbers(12,12)#<br />
+</bx:output>
 
 <hr />
 Exercise: Can you make a form that accepts two numbers, submits it to the same page and then uses the function to add the two numbers together? All the information you need is in these docs.
+
+<bx:function name="addNumbers" access="private" returntype="numeric">
+    <bx:argument name="firstnum" type="numeric">
+    <bx:argument name="secondnum" type="numeric">
+    <bx:return #firstnum + secondnum#>
+</bx:function>
+
+<bx:dump var="#form#" />
+
+<bx:output>
+    <br />
+    <bx:if form.keyExists("firstNum")>
+        #form.firstNum# + #form.secondNum# = #addNumbers(form.firstNum, secondNum)#
+    </bx:if>
+    
+    <form action="#cgi.script_name#?p=#p#" method="post">
+        <br />
+        <div class="mb-3">
+            <label for="firstNum" class="form-label">First Number</label>
+            <input type="number" class="form-control" id="firstNum" name="firstNum" placeholder="First Number">
+        </div>
+        <div class="mb-3">
+            <label for="secondNum" class="form-label">Second Number</label>
+            <input type="number" class="form-control" id="secondNum" name="secondNum" placeholder="Second Number">
+        </div>
+
+        <div>
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</bx:output>
