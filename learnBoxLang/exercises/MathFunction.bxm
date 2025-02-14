@@ -31,7 +31,7 @@ Exercise: Can you make a form that accepts two numbers, submits it to the same p
 <bx:output>
     <br />
     <bx:if form.keyExists("firstNum")>
-        #form.firstNum# + #form.secondNum# = #addNumbers(form.firstNum, secondNum)#
+        #form.firstNum# + #form.secondNum# = #addNumbers(form.firstNum, form.secondNum)#
     </bx:if>
     
     <form action="#cgi.script_name#?p=#p#" method="post">
