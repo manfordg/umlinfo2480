@@ -1,4 +1,8 @@
 
+    <bx:set articles = createObject("bookstore.common.articles") />
+
+    <bx:set allArticles = articles.getAllArticles( status=1) />
+
     <a class="navbar-brand" href="#">
         <img src="images/rdb.png" alt="Read Dees Books Logo"/>
     </a>
@@ -21,6 +25,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Events</a>
             </li>
+
+            <bx:output query="allarticles">
+                <li class="nav-item">
+                    <a class="nav-link" href="#cgi.script_name#?id=#id#&t=articles">#title#</a>
+                </li>
+            </bx:output>            
+
         </ul>
         <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

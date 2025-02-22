@@ -1,7 +1,9 @@
 class {
 
-    function getAllArticles() {
-        return queryExecute("SELECT * FROM articles");
+    function getAllArticles( numeric status = -1 ) {
+        var extra = status > -1 ? "WHERE status=#status#" : "";
+
+        return queryExecute("SELECT * FROM articles #extra#");
     }
 
     function getArticleById( required numeric id){

@@ -1,0 +1,8 @@
+<bx:set common = createObject("bookstore.common.articles") />
+<bx:set articleDetails = common.getArticleById( id ) />
+
+<bx:output>
+    <h2>#articleDetails.title#</h2>
+
+    <p>#articleDetails.description#</p>
+</bx:output>
