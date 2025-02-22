@@ -1,48 +1,64 @@
+
+<bx:param name="id" default="-1" />
+
+<bx:set common = createObject("bookstore.common.articles") />
+
 <bx:if form.keyExists("title")>
-    <bx:dump var="#form#" />
     <bx:param name="form.active" default="0" />
-    <bx:set common = createObject("bookstore.common.articles") />
+
     <bx:set common.saveArticle(form.title, form.body, form.active) />
 </bx:if>
+
+<bx:set allArticles = common.getAllArticles() />
 
 <bx:output>
     <div class="container">
         <div class="row">
             <div class="col-5">
-                This is for our list of articles
+                <ol>
+                    <li>
+                        <a href="#cgi.script_name#?id=0">Create New Article</a>
+                    </li>
+
+                    <bx:loop query="allArticles">
+                        <li><a href="#cgi.script_name#?id=#id#">#title#</a></li>
+                    </bx:loop>
+                </ol>                
             </div>
 
             <div class="col-7">
-                <form action="#cgi.script_name#" method="POST">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <h1>Manage Articles</h1>
+                <bx:if id gt -1>
+                    <form action="#cgi.script_name#" method="POST">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h1>Manage Articles</h1>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-floating mb-3 col-12">
-                            <input type="text" name="title" class="form-control" id="formTitle" placeholder="Enter a title">
-                            <label for="formTitle">Title</label>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="title" class="form-control" id="formTitle" placeholder="Enter a title">
+                                <label for="formTitle">Title</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-floating col-12">
-                            <textarea class="form-control h-100" name="body" placeholder="Enter a body here" id="formBody"></textarea>
-                            <label for="formBody">Body</label>
+                        <div class="row">
+                            <div class="form-floating col-12">
+                                <textarea class="form-control h-100" name="body" placeholder="Enter a body here" id="formBody"></textarea>
+                                <label for="formBody">Body</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 d-flex align-items-center mt-3">
-                            <label class="form-check-label me-2" for="formActive">Active</label>
-                            <input class="form-check-input" name="active" type="checkbox" value="1" id="formActive">
+                        <div class="row">
+                            <div class="col-12 d-flex align-items-center mt-3">
+                                <label class="form-check-label me-2" for="formActive">Active</label>
+                                <input class="form-check-input" name="active" type="checkbox" value="1" id="formActive">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mt-4">
-                            <button class="btn btn-primary w-100" type="submit">Save</button>
+                        <div class="row">
+                            <div class="col-12 mt-4">
+                                <button class="btn btn-primary w-100" type="submit">Save</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </bx: if>
             </div>
         </div>
     </div>

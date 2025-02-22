@@ -1,5 +1,9 @@
 class {
 
+    function getAllArticles() {
+        return queryExecute("SELECT * FROM articles");
+    }
+
     function saveArticle( required string title = "", 
         required string description = "", 
         numeric status = 0) {
