@@ -4,17 +4,25 @@ class {
         return queryExecute("SELECT * FROM articles");
     }
 
+    function getArticleById( required numeric id){
+        return queryExecute("SELECT * FROM articles where id=:id",{id:arguments.id});
+    }
+
     function saveArticle( required string title = "", 
         required string description = "", 
-        numeric status = 0) {
+        numeric status = 0,
+        numeric id = 0) {
 
         queryExecute("
-            INSERT IGNORE INTO articles (title, description, status) 
-            VALUES (:title, :description, :status)
+            INSERT into articles (id, title, description, status) 
+            VALUES (:id,:title, :description, :status) 
+            ON DUPLICATE KEY UPDATE title=:title,
+                description=:description,status=:status
         ",{
             title: arguments.title,
             description: arguments.description,
-            status: arguments.status
+            status: arguments.status,
+            id: arguments.id
         });
 
     }

@@ -6,7 +6,7 @@
 <bx:if form.keyExists("title")>
     <bx:param name="form.active" default="0" />
 
-    <bx:set common.saveArticle(form.title, form.body, form.active) />
+    <bx:set common.saveArticle(form.title, form.body, form.active, form.id) />
 </bx:if>
 
 <bx:set allArticles = common.getAllArticles() />
@@ -28,28 +28,34 @@
 
             <div class="col-7">
                 <bx:if id gt -1>
+                    <bx:set articleDetails = common.getArticleById(id) />
+
                     <form action="#cgi.script_name#" method="POST">
                         <div class="row">
                             <div class="col-12 text-center">
                                 <h1>Manage Articles</h1>
                             </div>
                         </div>
+                        <input type="text" name="id" value="#isvalid('numeric', articleDetails.id) ? articleDetails.id : 0#" />
                         <div class="row">
                             <div class="form-floating mb-3 col-12">
-                                <input type="text" name="title" class="form-control" id="formTitle" placeholder="Enter a title">
+                                <input type="text" name="title" value="#articleDetails.title#" class="form-control" 
+                                    id="formTitle" placeholder="Enter a title">
                                 <label for="formTitle">Title</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-floating col-12">
-                                <textarea class="form-control h-100" name="body" placeholder="Enter a body here" id="formBody"></textarea>
+                                <textarea class="form-control h-100" name="body" placeholder="Enter a body here" 
+                                    id="formBody">#articleDetails.description#</textarea>
                                 <label for="formBody">Body</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 d-flex align-items-center mt-3">
                                 <label class="form-check-label me-2" for="formActive">Active</label>
-                                <input class="form-check-input" name="active" type="checkbox" value="1" id="formActive">
+                                <input class="form-check-input" name="active" type="checkbox" 
+                                    #articleDetails.status==1 ? "checked" : ""# value="1" id="formActive">
                             </div>
                         </div>
                         <div class="row">
