@@ -1,0 +1,46 @@
+class {
+
+    function getAllBooks( string parm = "" ) {
+        var extra = parm <> "" ? "WHERE ISBN13=#parm# OR title=#parm#" : "";
+
+        return queryExecute("SELECT * FROM books #extra#");
+    }
+
+    function getBookByISBN13( required string ISBN13){
+        return queryExecute("SELECT * FROM books where ISBN13=:ISBN13",{ISBN13:arguments.ISBN13});
+    }
+
+    function saveBook( required string ISBN13 = "",
+        required string title = "", 
+        string ISBN = "",
+        numeric weight = 0,
+        string binding = "", 
+        numeric pages = 0,
+        numeric publisherId = 0,
+        string language = "") {
+
+        queryExecute("
+            INSERT into books (ISBN13, title, ISBN, weight, binding, pages, publisherId, language) 
+            VALUES (:ISBN13,:title, :ISBN, :weight, :binding, :pages, :publisherId, :language) 
+            ON DUPLICATE KEY UPDATE 
+                ISBN13=:ISBN13,
+                title=:title,
+                ISBN=:ISBN,
+                weight=:weight,
+                binding=:binding,
+                pages=:pages,
+                publisherId=:publisherId,
+                language=:language
+        ",{
+            ISBN13: arguments.ISBN13,
+            title: arguments.title,
+            ISBN: arguments.ISBN,
+            weight: arguments.weight,
+            binding: arguments.binding,
+            pages: arguments.pages,
+            publisherId: arguments.publisherId,
+            language: arguments.language
+        });
+
+    }    
+}

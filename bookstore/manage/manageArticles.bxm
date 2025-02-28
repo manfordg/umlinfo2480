@@ -12,6 +12,7 @@
 <bx:set allArticles = common.getAllArticles() />
 
 <bx:output>
+    <h2>Manage Articles</h2>
     <div class="container">
         <div class="row">
             <div class="col-5">

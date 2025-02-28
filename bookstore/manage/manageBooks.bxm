@@ -1,0 +1,107 @@
+
+<bx:param name="id" default="" />
+
+<bx:set common = createObject("bookstore.common.books") />
+
+<bx:if form.keyExists("ISBN13")>
+
+    <bx:set common.saveBook(form.ISBN13, form.title, form.ISBN, form.weight, form.binding, 
+        form.pages, form.publisherId, form.language) />
+</bx:if>
+
+<bx:set allBooks = common.getAllBooks() />
+
+<bx:output>
+    <h2>Manage Books</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-5">
+                <ol>
+                    <li>
+                        <a href="#cgi.script_name#?t=manageBooks&id=0">Create New Book</a>
+                    </li>
+
+                    <bx:loop query="allBooks">
+                        <li><a href="#cgi.script_name#?t=manageBooks&id=#ISBN13#">#title#</a></li>
+                    </bx:loop>
+                </ol>                
+            </div>
+
+            <div class="col-7">
+                <bx:if id gt -1>
+                    <bx:set bookDetails = common.getBookByISBN13(id) />
+
+                    <form action="#cgi.script_name#?t=manageBooks" method="POST">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h1>Manage Books</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="ISBN13" value="#bookDetails.ISBN13#" class="form-control" 
+                                    id="formISBN13" placeholder="Enter an ISBN-13">
+                                <label for="formISBN13">ISBN-13</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="title" value="#bookDetails.title#" class="form-control" 
+                                    id="formTitle" placeholder="Enter a title">
+                                <label for="formTitle">Title</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="ISBN" value="#bookDetails.ISBN#" class="form-control" 
+                                    id="formISBN" placeholder="Enter an ISBN">
+                                <label for="formISBN">ISBN</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="weight" value="#bookDetails.weight#" class="form-control" 
+                                    id="formWeight" placeholder="Enter the book weight">
+                                <label for="formWeight">Weight</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="binding" value="#bookDetails.binding#" class="form-control" 
+                                    id="formBinding" placeholder="Enter the binding of book">
+                                <label for="formBinding">Binding</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="pages" value="#bookDetails.pages#" class="form-control" 
+                                    id="formPages" placeholder="Enter number of pages">
+                                <label for="formPages">Number of Pages</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="publisherId" value="#bookDetails.publisherId#" class="form-control" 
+                                    id="formPublisherId" placeholder="Enter publisher">
+                                <label for="formPublisherId">Publisher</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="text" name="language" value="#bookDetails.language#" class="form-control" 
+                                    id="formLanguage" placeholder="Enter language">
+                                <label for="formLanguage">Language</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mt-4">
+                                <button class="btn btn-primary w-100" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </bx: if>
+            </div>
+        </div>
+    </div>
+</bx:output>

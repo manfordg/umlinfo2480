@@ -12,30 +12,24 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Manage Articles</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Highlighted Favorites</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Events</a>
-            </li>
-            
-            <bx:output query="allarticles">
-                <li class="nav-item">
-                    <a class="nav-link" href="#cgi.script_name#?id=#id#&t=articles">#title#</a>
+    <bx:output>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
                 </li>
-            </bx:output>            
-        </ul>
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="#cgi.script_name#?t=manageArticles">Manage Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#cgi.script_name#?t=manageBooks">Manage Books</a>
+                </li>
+                
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </bx:output>
 </nav>
