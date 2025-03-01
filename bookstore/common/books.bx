@@ -1,7 +1,7 @@
 class {
 
     function getAllBooks( string parm = "" ) {
-        var extra = parm <> "" ? "WHERE ISBN13=#parm# OR title=#parm#" : "";
+        var extra = parm <> "" ? "WHERE ISBN13 LIKE '%#trim(parm)#%' OR title LIKE '%#trim(parm)#%'" : "";
 
         return queryExecute("SELECT * FROM books #extra#");
     }
