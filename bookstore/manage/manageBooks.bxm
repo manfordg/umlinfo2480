@@ -6,7 +6,7 @@
 <bx:if form.keyExists("ISBN13")>
 
     <bx:set common.saveBook(form.ISBN13, form.title, form.ISBN, form.weight, form.binding, 
-        form.pages, form.publisherId, form.language) />
+        form.pages, form.publisherId, form.language, form.description) />
 </bx:if>
 
 <bx:set allBooks = common.getAllBooks() />
@@ -93,6 +93,13 @@
                                 <label for="formLanguage">Language</label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-floating col-12">
+                                <textarea class="form-control h-100" name="description" placeholder="Enter a description here" 
+                                    id="formDescription">#bookDetails.description#</textarea>
+                                
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-12 mt-4">
@@ -105,3 +112,26 @@
         </div>
     </div>
 </bx:output>
+
+<script>
+    const {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph
+    } = CKEDITOR;
+
+    ClassicEditor
+        .create( document.querySelector( '#formDescription' ), {
+            licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NzI2Njg3OTksImp0aSI6IjdkNzhkMDllLTQ2OWYtNDVmYy05MjVlLTE4NTBkZmFmOTI2NyIsImxpY2Vuc2VkSG9zdHMiOlsiMTI3LjAuMC4xIiwibG9jYWxob3N0IiwiMTkyLjE2OC4qLioiLCIxMC4qLiouKiIsIjE3Mi4qLiouKiIsIioudGVzdCIsIioubG9jYWxob3N0IiwiKi5sb2NhbCJdLCJ1c2FnZUVuZHBvaW50IjoiaHR0cHM6Ly9wcm94eS1ldmVudC5ja2VkaXRvci5jb20iLCJkaXN0cmlidXRpb25DaGFubmVsIjpbImNsb3VkIiwiZHJ1cGFsIl0sImxpY2Vuc2VUeXBlIjoiZGV2ZWxvcG1lbnQiLCJmZWF0dXJlcyI6WyJEUlVQIl0sInZjIjoiYWQ0N2YxY2IifQ.8_vRzigGQ1Ritc6SSCCb2-xc3SHg4nBFlGfjIJcPM00Wg1z7vztFJuWuy-nBKpANY_6yj02wp4SLO9drBqQcjA',
+            plugins: [ Essentials, Bold, Italic, Font, Paragraph ],
+            toolbar: [
+                'undo', 'redo', '|', 'bold', 'italic', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+            ]
+        } )
+        .then( /* ... */ )
+        .catch( /* ... */ );
+</script>

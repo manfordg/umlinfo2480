@@ -17,11 +17,12 @@ class {
         string binding = "", 
         numeric pages = 0,
         numeric publisherId = 0,
-        string language = "") {
+        string language = "",
+        string description) {
 
         queryExecute("
-            INSERT into books (ISBN13, title, ISBN, weight, binding, pages, publisherId, language) 
-            VALUES (:ISBN13,:title, :ISBN, :weight, :binding, :pages, :publisherId, :language) 
+            INSERT into books (ISBN13, title, ISBN, weight, binding, pages, publisherId, language, description) 
+            VALUES (:ISBN13,:title, :ISBN, :weight, :binding, :pages, :publisherId, :language, :description) 
             ON DUPLICATE KEY UPDATE 
                 ISBN13=:ISBN13,
                 title=:title,
@@ -30,7 +31,8 @@ class {
                 binding=:binding,
                 pages=:pages,
                 publisherId=:publisherId,
-                language=:language
+                language=:language,
+                description=:description
         ",{
             ISBN13: arguments.ISBN13,
             title: arguments.title,
@@ -39,7 +41,8 @@ class {
             binding: arguments.binding,
             pages: arguments.pages,
             publisherId: arguments.publisherId,
-            language: arguments.language
+            language: arguments.language,
+            description: arguments.description
         });
 
     }    
