@@ -1,0 +1,12 @@
+<form action="upload_test.bxm" method="POST" enctype="multipart/form-data">
+    <input type="file" name="uploadImage" id="uploadImage" />
+    <input type="submit" value="Upload" />
+</form>
+
+<bx:if form.keyExists("uploadImage")>
+    <bx:dump var="#form#" />
+    <bx:dump var="#getHttpRequestData()#" />
+
+<bx:else>
+    <p>No file detected. Try again.</p>
+</bx:if>

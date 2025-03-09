@@ -4,12 +4,20 @@
 <bx:set common = createObject("bookstore.common.books") />
 
 <bx:if form.keyExists("ISBN13")>
+<!---
+    <bx:dump var="#form.uploadImage#" />
+    <bx:dump var="#form.uploadImage#" />
+
+    <bx:set fileInfo = common.uploadFile() />
+    <bx:set form.image = fileInfo.serverFileName />
+--->
 
     <bx:set common.saveBook(form.ISBN13, form.title, form.ISBN, form.weight, form.binding, 
-        form.pages, form.publisherId, form.language, form.description) />
+        form.pages, form.publisherId, form.language, form.description, form.image) />
 </bx:if>
 
 <bx:set allBooks = common.getAllBooks() />
+<bx:set allPublishers = common.getAllPublishers()>
 
 <bx:output>
     <h2>Manage Books</h2>
@@ -31,7 +39,7 @@
                 <bx:if id gt -1>
                     <bx:set bookDetails = common.getBookByISBN13(id) />
 
-                    <form action="#cgi.script_name#?t=manageBooks" method="POST">
+                    <form action="#cgi.script_name#?t=manageBooks" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-12 text-center">
                                 <h1>Manage Books</h1>
@@ -81,9 +89,13 @@
                         </div>
                         <div class="row">
                             <div class="form-floating mb-3 col-12">
-                                <input type="text" name="publisherId" value="#bookDetails.publisherId#" class="form-control" 
-                                    id="formPublisherId" placeholder="Enter publisher">
-                                <label for="formPublisherId">Publisher</label>
+                                <select class="form-select" id="formPublisher" name="publisherId" aria-label="Publisher Select Control">
+                                    <option value=""></option>
+                                    <bx:loop query="allPublishers">
+                                        <option value="#id#" #id == bookDetails.publisherId ? "selected" : ""# >#name#</option>
+                                    </bx:loop>
+                                </select>
+                                <label for="formPublisher">Publisher</label>
                             </div>
                         </div>
                         <div class="row">
@@ -94,12 +106,25 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-floating col-12">
+                            <div class="form-floating mb-3 col-12">
                                 <textarea class="form-control h-100" name="description" placeholder="Enter a description here" 
                                     id="formDescription">#bookDetails.description#</textarea>
                                 
                             </div>
                         </div>
+                        <div class="row">
+                            <label for="uploadImage">Upload Cover</label>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <input type="hidden" name="image" value="#trim(isNull(bookDetails.image[1], ""))#">
+                                
+                                <div class="input-group mb-3">    
+                                    <input type="file" id="uploadImage" name="uploadImage" class="form-control" />    
+                                </div>                                
+                            </div>
+                        </div>
+
 
                         <div class="row">
                             <div class="col-12 mt-4">

@@ -18,11 +18,12 @@ class {
         numeric pages = 0,
         numeric publisherId = 0,
         string language = "",
-        string description) {
+        string description,
+        string image) {
 
         queryExecute("
-            INSERT into books (ISBN13, title, ISBN, weight, binding, pages, publisherId, language, description) 
-            VALUES (:ISBN13,:title, :ISBN, :weight, :binding, :pages, :publisherId, :language, :description) 
+            INSERT into books (ISBN13, title, ISBN, weight, binding, pages, publisherId, language, description, image) 
+            VALUES (:ISBN13,:title, :ISBN, :weight, :binding, :pages, :publisherId, :language, :description, :image) 
             ON DUPLICATE KEY UPDATE 
                 ISBN13=:ISBN13,
                 title=:title,
@@ -32,7 +33,8 @@ class {
                 pages=:pages,
                 publisherId=:publisherId,
                 language=:language,
-                description=:description
+                description=:description,
+                image=:image
         ",{
             ISBN13: arguments.ISBN13,
             title: arguments.title,
@@ -42,8 +44,43 @@ class {
             pages: arguments.pages,
             publisherId: arguments.publisherId,
             language: arguments.language,
-            description: arguments.description
+            description: arguments.description,
+            image: arguments.image
         });
 
-    }    
+    }   
+    
+    function getAllPublishers() {
+       
+        return queryExecute("SELECT * FROM publishers");
+    }
+
+    // DO NOT USE.
+    // This code doesn't seem to be working correctly but I can't figure out why
+    function uploadFile(  ){
+        var uploadedFile = request.file.uploadImage;  // Access file
+
+        if ( !uploadedFile.isEmpty() ) {
+            var savePath = expandPath( "/bookstore/common/images/" & uploadedFile.getName() );
+            uploadedFile.write( savePath );
+        }
+
+        return {"File uploaded successfully!"};
+
+
+
+        var uploadPath = expandPath( "/bookstore/common/images/" );
+
+        // Perform file upload
+        var result = fileUpload( uploadPath, "uploadImage" );
+
+        if ( !result.success ) {
+            return { error: "File upload failed: " & result.error };
+        }
+
+        return { success: true, filePath: result.filePath };        
+
+        /* return fileUpload(expandPath("/bookstore/common/images/"), fileField,"*","makeUnique"); */
+        return fileUpload(expandPath("/bookstore/common/images/"), "uploadImage","*","makeUnique"); 
+     }
 }
