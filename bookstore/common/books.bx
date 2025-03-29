@@ -66,6 +66,40 @@ class {
         return queryExecute("SELECT * FROM publishers");
     }
 
+    function getAllGenres() {
+        return queryExecute("SELECT * FROM genres");
+    }
+
+    function saveGenreToBook( required numeric genreId = 0,
+        required string ISBN13 = "") {
+
+        queryExecute("
+            INSERT INTO genresToBooks (genreId, ISBN13) 
+            VALUES (:genreId, :ISBN13) 
+            ON DUPLICATE KEY UPDATE 
+                genreId=:genreId,
+                ISBN13=:ISBN13
+        ",{
+            genreId: arguments.genreId,
+            ISBN13: arguments.ISBN13
+        });
+
+    }   
+
+    function clearAllBookGenres( string ISBN13 = "") {
+        return queryExecute("DELETE FROM genresToBooks WHERE ISBN13=''");
+    }
+
+    function getAllGenresForBook(genreId=0, ISBN13=''){
+
+    } 
+
+    function distinctGenres(){
+        return queryExecute("SELECT DISTINCT g.genreId, g.genreName FROM genresToBooks gtb 
+             INNER JOIN genres g ON g.genreId = gtb.genreId ORDER BY g.genreName");
+    }
+
+
     // DO NOT USE.
     // This code doesn't seem to be working correctly but I can't figure out why
     function uploadFile(  ){
