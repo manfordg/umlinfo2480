@@ -3,7 +3,9 @@ class {
     function getAllBooks( string parm = "" ) {
         var extra = parm <> "" ? "WHERE ISBN13 LIKE '%#trim(parm)#%' OR title LIKE '%#trim(parm)#%'" : "";
 
-        return queryExecute("SELECT * FROM books #extra#");
+        return queryExecute("SELECT * FROM books 
+            INNER JOIN publishers ON books.publisherId = publishers.id 
+            #extra#");
     }
 
     function getBookByISBN13( required string ISBN13){

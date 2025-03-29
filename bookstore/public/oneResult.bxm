@@ -5,7 +5,7 @@
     <div>Weight: #bookinfo.weight[1]#</div> 
     <div>Binding: #bookinfo.binding[1]#</div> 
     <div>Pages: #bookinfo.pages[1]#</div> 
-    <div>Publisher: #bookinfo.publisherId[1]#</div> 
+    <div>Publisher: #bookinfo.name[1]#</div> 
     <div>Language: #bookinfo.language[1]#</div>
     <div>Description: #bookinfo.description[1]#</div> 
 </bx:output>
