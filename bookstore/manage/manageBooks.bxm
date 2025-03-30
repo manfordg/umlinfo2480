@@ -16,8 +16,21 @@
         form.pages, form.publisherId, form.language, form.description, form.image) />
 </bx:if>
 
+<bx:script>
+    if(form.keyExists("genre")){
+        common.clearAllBookGenres(form.ISBN13);
+
+        form.genre.listToArray().each(function(item){
+            common.saveGenreToBook(item, form.ISBN13);
+        });
+    }
+</bx:script>
+
 <bx:set allBooks = common.getAllBooks() />
 <bx:set allPublishers = common.getAllPublishers()>
+<bx:set allGenres = common.getAllGenres() />
+<bx:set bookGenres = common.getAllGenresForBook() />
+
 
 <bx:output>
     <h2>Manage Books</h2>
@@ -122,6 +135,16 @@
                                 <div class="input-group mb-3">    
                                     <input type="file" id="uploadImage" name="uploadImage" class="form-control" />    
                                 </div>                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="genre">Genres</label>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-12">
+                                <bx:loop query="allGenres">
+                                    <input id="genre#genreId#" type="checkbox" name="genre" value="#genreId#" /> #genreName#<br/>
+                                </bx:loop>
                             </div>
                         </div>
 

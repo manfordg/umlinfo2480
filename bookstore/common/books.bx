@@ -87,11 +87,19 @@ class {
     }   
 
     function clearAllBookGenres( string ISBN13 = "") {
-        return queryExecute("DELETE FROM genresToBooks WHERE ISBN13=''");
+        return queryExecute("DELETE FROM genresToBooks WHERE ISBN13=:ISBN13",{ISBN13:arguments.ISBN13});
     }
 
     function getAllGenresForBook(genreId=0, ISBN13=''){
-
+        var ourSQL = "SELECT * FROM books b 
+            INNER JOIN genresToBooks gtb ON b.ISBN13 = gtb.ISBN13
+            INNER JOIN genres g on gtb.genreId = g.genreId";
+        if(arguments.genreId > 0){
+           ourSQL = ourSQL & " WHERE gtb.genreId = #arguments.genreId#";
+        }
+        if(arguments.ISBN13.len() > 0){
+           ourSQL = ourSQL & " WHERE gtb.ISBN13 = '#arguments.ISBN13#'";
+        }
     } 
 
     function distinctGenres(){
