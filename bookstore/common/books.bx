@@ -1,24 +1,35 @@
 class {
 
-    function getAllBooks( string parm = "" ) {
+    function getAllBooks( string searchTerm = "", numeric genreId = 0 ) {
 
-        return queryExecute("SELECT * from books b
-                INNER JOIN publishers p
-                ON b.publisherId=p.id
-                WHERE b.title LIKE :searchTermLike
-                OR b.isbn13 LIKE :searchTerm
-                OR p.id = :searchTerm            
-                OR p.name LIKE :searchTermLike
-            ",
-        {
-         searchTermLike : '%#arguments.parm#%',
-         searchTerm : '#arguments.parm#'
-        });
+        if(searchTerm.len() != 0) {
+            return queryExecute("SELECT * FROM books b
+                    INNER JOIN publishers p
+                    ON b.publisherId=p.id
+                    WHERE b.title LIKE :searchTermLike
+                    OR b.isbn13 LIKE :searchTerm
+                    OR p.id = :searchTerm            
+                    OR p.name LIKE :searchTermLike
+                ",
+            {
+            searchTermLike : '%#arguments.searchTerm#%',
+            searchTerm : '#arguments.searchTerm#'
+            });
+
+        } else if( genreId > 0){
+            return queryExecute("SELECT * FROM books b
+                INNER JOIN genresToBooks gtb ON b.isbn13 = gtb.isbn13
+                INNER JOIN publishers p ON b.publisherId = p.id
+                WHERE gtb.genreId = :genreId ",
+                {
+                   genreId : '#arguments.genreId#'
+                }); 
+        }
 
     }
 
     function getBookByISBN13( required string ISBN13){
-        return queryExecute("SELECT * FROM books where ISBN13=:ISBN13",{ISBN13:arguments.ISBN13});
+        return queryExecute("SELECT * FROM books WHERE ISBN13=:ISBN13",{ISBN13:arguments.ISBN13});
     }
 
     function saveBook( required string ISBN13 = "",

@@ -1,9 +1,11 @@
 
 <bx:param name="searchTerm" default="">
-<bx:param name="genreId" default=0 />
+<bx:param name="genre" default=0 />
+
+<bx:dump var = 'form' />
 
 <bx:set bookstoreFunctions = createObject("bookstore.common.books") />
-<bx:set bookInfo = bookstoreFunctions.getAllBooks(searchTerm) />
+<bx:set bookInfo = bookstoreFunctions.getAllBooks(searchTerm, genre) />
 
 <h2>Search Results</h2>
 

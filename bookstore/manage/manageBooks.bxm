@@ -14,6 +14,8 @@
 
     <bx:set common.saveBook(form.ISBN13, form.title, form.ISBN, form.weight, form.binding, 
         form.pages, form.publisherId, form.language, form.description, form.image) />
+
+        <bx:dump var="form" />
 </bx:if>
 
 <bx:script>
@@ -29,10 +31,11 @@
 <bx:set allBooks = common.getAllBooks() />
 <bx:set allPublishers = common.getAllPublishers()>
 <bx:set allGenres = common.getAllGenres() />
-<bx:set bookGenres = common.getAllGenresForBook() />
+
 
 
 <bx:output>
+
     <h2>Manage Books</h2>
     <div class="container">
         <div class="row">
@@ -51,6 +54,7 @@
             <div class="col-7">
                 <bx:if id gt -1>
                     <bx:set bookDetails = common.getBookByISBN13(id) />
+                    <bx:set bookGenres = common.getAllGenresForBook(0, id) />
 
                     <form action="#cgi.script_name#?t=manageBooks" method="POST" enctype="multipart/form-data">
                         <div class="row">
@@ -144,6 +148,9 @@
                             <div class="form-floating mb-3 col-12">
                                 <bx:loop query="allGenres">
                                     <input id="genre#genreId#" type="checkbox" name="genre" value="#genreId#" /> #genreName#<br/>
+                                </bx:loop>
+                                <bx:loop query="bookGenres">
+                                    <script>document.getElementById('genre#genreId#').checked=true;</script>
                                 </bx:loop>
                             </div>
                         </div>
