@@ -1,5 +1,6 @@
 
 <bx:param name="searchTerm" default="">
+<bx:param name="genreId" default=0 />
 
 <bx:set bookstoreFunctions = createObject("bookstore.common.books") />
 <bx:set bookInfo = bookstoreFunctions.getAllBooks(searchTerm) />

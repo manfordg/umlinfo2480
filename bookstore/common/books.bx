@@ -100,6 +100,8 @@ class {
         if(arguments.ISBN13.len() > 0){
            ourSQL = ourSQL & " WHERE gtb.ISBN13 = '#arguments.ISBN13#'";
         }
+
+        return queryExecute(ourSQL);
     } 
 
     function distinctGenres(){
