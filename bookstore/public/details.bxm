@@ -2,6 +2,7 @@
 <bx:param name="searchTerm" default="">
 <bx:param name="genre" default=0 />
 
+<!--- The way this is writte, it's outputting the string "form". To see the form scope use <bx:dump var="#form#" /> --->
 <bx:dump var = 'form' />
 
 <bx:set bookstoreFunctions = createObject("bookstore.common.books") />

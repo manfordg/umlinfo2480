@@ -123,30 +123,54 @@ class {
 
     // DO NOT USE.
     // This code doesn't seem to be working correctly but I can't figure out why
-    function uploadFile(  ){
-        var uploadedFile = request.file.uploadImage;  // Access file
+    /*
+        This is really close and I applaud the research you must have done in researching potential solutions. 
+        The code for this is on  https://book.umlinfo2480.com/week-7-working-with-selects-files-wysiwyg-and-more./adding-images-to-our-store). This is here for reference.
+         The uploadFile function takes 1 parameter which is the name of the input which has the image data. I've added it here. 
+    */
+    function uploadFile( fileField  ){
+        /* When you started debugging, this was a good first attempt. Using 
+        The request scope is all of the variables which are part of the overall request which is being processed by the server at this moment. 
+        You can see it by using <bx:dump var="#request#" />. It doesn't have a "file" key which is why this is failing. 
 
+        The file scope is all all the variables which are generated when working with a file. The data for our form is inside the FORM scope which is all
+        the data submitted via the POST method in a request. 
+
+
+        */
+        //dump(var=request); abort;
+        //var uploadedFile = request.file.uploadImage;  // Access file
+        /*
         if ( !uploadedFile.isEmpty() ) {
             var savePath = expandPath( "/bookstore/common/images/" & uploadedFile.getName() );
             uploadedFile.write( savePath );
-        }
+        }*/
+        /* This is good messaging but the code in manageBooks.bxm is relying on returning the name of the image which was uploaded to put into the DB */
+        //return {"File uploaded successfully!"};
 
-        return {"File uploaded successfully!"};
 
-
-
+        // This makes sense. Puttting something like the path to the images into a variable allows you to use it in multiple places should you need to.
         var uploadPath = expandPath( "/bookstore/common/images/" );
 
         // Perform file upload
-        var result = fileUpload( uploadPath, "uploadImage" );
+        // This is good syntax and working code. Unfortunately, the request.file.uploadImage was preventing it from getting here. :(.
+        // One comment is that not putting in an option like "makeUnique" (see below) means that if an image of the same name is uploaded it will throw an error.
+        var result = fileUpload( uploadPath, "uploadImage","*","makeUnique" );
+        //writedump(result);abort;
 
-        if ( !result.success ) {
-            return { error: "File upload failed: " & result.error };
-        }
+        //This technique makes sense. If the call doens't succeed, we want to let the user or the logging know it failed. However, even if it fails, 
+        // the result variable, doesn't have a key called "success".
+        //if ( !result.success ) {
+        //    return { error: "File upload failed: " & result.error };
+        //}
 
-        return { success: true, filePath: result.filePath };        
+        //I replaced filePath here since that is the name of the key in "result" that contains the name of the file on the server.
+        // Uncomment the //writeDump(result); abort line above to see what I mean
+        return { success: true, filePath: result.serverFileName };        
 
         /* return fileUpload(expandPath("/bookstore/common/images/"), fileField,"*","makeUnique"); */
-        return fileUpload(expandPath("/bookstore/common/images/"), "uploadImage","*","makeUnique"); 
+
+        // The original function from the docs. This might have been originally failing because there was no /bookstore/common/images folder (Step 1 under Handling The Uploaded Image)
+        //return fileUpload(expandPath("/bookstore/common/images/"), "uploadImage","*","makeUnique"); 
      }
 }

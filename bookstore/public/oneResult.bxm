@@ -1,16 +1,31 @@
 <bx:output> 
-    <div>Title: #bookinfo.title[1]#</div> 
-    <div>ISBN13: #bookinfo.ISBN13[1]#</div> 
-    <div>ISBN: #bookinfo.ISBN[1]#</div> 
-    <div>Weight: #bookinfo.weight[1]#</div> 
-    <div>Binding: #bookinfo.binding[1]#</div> 
-    <div>Pages: #bookinfo.pages[1]#</div> 
-    <div>Publisher: 
-        <a href="#cgi.script_name#?t=details&searchTerm=#bookinfo.id#">
-            #bookinfo.name[1]#
-         </a>
-        
-    </div> 
-    <div>Language: #bookinfo.language[1]#</div>
-    <div>Description: #bookinfo.description[1]#</div> 
+    <div class="row">
+        <div class="col-3">
+            <!--- Check if the image has a length and, if so, show the image --->
+            <!--- I see the idea behind using "false" in the db but there is a difference between false as a boolean and "false" as a string.
+                In this case, false was being treated as a string so the system couldn't distinguish between the word "false" and a path to the image. 
+                Probably better with strings to just keep it blank --->
+            <bx:if trim(bookinfo.image[1]).len() && bookinfo.image[1] != "false">
+                <img src="/bookstore/common/images/#bookinfo.image[1]#" style="width:150px" />
+            </bx:if>
+        </div>
+        <div class="col-9">
+            <div>Title: #bookinfo.title[1]#</div> 
+            <div>ISBN13: #bookinfo.ISBN13[1]#</div> 
+            <div>ISBN: #bookinfo.ISBN[1]#</div> 
+            <div>Weight: #bookinfo.weight[1]#</div> 
+            <div>Binding: #bookinfo.binding[1]#</div> 
+            <div>Pages: #bookinfo.pages[1]#</div> 
+            <div>Publisher: 
+                <a href="#cgi.script_name#?t=details&searchTerm=#bookinfo.id#">
+                    #bookinfo.name[1]#
+                 </a>
+                
+            </div> 
+            <div>Language: #bookinfo.language[1]#</div>
+            <div>Description: #bookinfo.description[1]#</div> 
+        </div>
+    </div>    
+
+
 </bx:output>

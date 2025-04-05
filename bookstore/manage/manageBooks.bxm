@@ -4,14 +4,14 @@
 <bx:set common = createObject("bookstore.common.books") />
 
 <bx:if form.keyExists("ISBN13")>
-<!---
     <bx:dump var="#form.uploadImage#" />
     <bx:dump var="#form.uploadImage#" />
 
-    <bx:set fileInfo = common.uploadFile() />
-    <bx:set form.image = fileInfo.serverFileName />
---->
-
+    <bx:if form.keyExists("uploadImage") && form.uploadImage.len()>
+        <bx:set fileInfo = common.uploadFile( "uploadImage") />
+        <!--- I adapted this from the docs because of the changes you made to the return in bookstore.common.books.uploadFile() --->
+        <bx:set form.image = fileInfo.filepath />
+    </bx:if>
     <bx:set common.saveBook(form.ISBN13, form.title, form.ISBN, form.weight, form.binding, 
         form.pages, form.publisherId, form.language, form.description, form.image) />
 
@@ -28,7 +28,8 @@
     }
 </bx:script>
 
-<bx:set allBooks = common.getAllBooks() />
+<!--- I added a '%' search terms because the conditions we added later in getAllBooks() prevented anything from being returned --->
+<bx:set allBooks = common.getAllBooks( '%' ) />
 <bx:set allPublishers = common.getAllPublishers()>
 <bx:set allGenres = common.getAllGenres() />
 
